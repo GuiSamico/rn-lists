@@ -3,7 +3,9 @@ import {
     SafeAreaView,
     StyleSheet,
     StatusBar,
-    Text
+    Text,
+    TouchableWithoutFeedback,
+    View
 } from "react-native";
 import { useRoute } from '@react-navigation/native';
 
@@ -12,27 +14,23 @@ import FlatListItem from "../../components/FlatListItem/FlatListItem";
 const DATA = [
     {
         id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-        title: "First Item",
-        avatar: "logo01.png"
+        title: "First Item"
     },
     {
         id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
         title: "Second Item",
-        avatar: "harry.png"
     },
     {
         id: "58694a0f-3da1-471f-bd96-145571e29d72",
         title: "Third Item",
-        avatar: "mario.png"
     },
     {
         id: "58694a0f-3da1-471f-bd96-145571e29d73",
         title: "Third Item",
-        avatar: "pinoquio.jpg"
     },
 ];
 
-export default function Details({navigation}) {
+export default function Details({ navigation }) {
     const route = useRoute();
     const title = route.params.title;
 
@@ -41,8 +39,13 @@ export default function Details({navigation}) {
             <Text style={style.sectionHeader}>{title}</Text>
             <FlatList
                 data={DATA}
-                renderItem={({ item }) => (
-                    <FlatListItem title={item.title} avatar={item.avatar}/>
+                renderItem={({ item }) =>
+                (
+                    <TouchableWithoutFeedback onPress={() => navigation.navigate('SpecificItem', { title })}>
+                        <View>
+                            <FlatListItem title={item.title} />
+                        </View>
+                    </TouchableWithoutFeedback>
                 )}
             />
         </SafeAreaView>
